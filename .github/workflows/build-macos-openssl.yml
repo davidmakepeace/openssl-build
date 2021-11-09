@@ -52,7 +52,7 @@ jobs:
               darwin64-${{ matrix.ARCH.NAME }}-cc \
               $OPENSSL_BUILD_FLAGS
           make -j$(sysctl -n hw.logicalcpu)
-          make install
+          make install_sw install_fips
         env:
           CFLAGS: ${{ matrix.ARCH.CFLAGS }}
 
@@ -78,7 +78,7 @@ jobs:
         run: |
           mkdir artifact
           cd artifact
-          mkdir bin lib
+          mkdir -p bin lib lib/ossl-modules ssl
           cp -r ../x86-64/include .
           cp -r ../x86-64/lib/pkgconfig lib/
           cp ../x86-64/bin/c_rehash bin/  # c_rehash is a perl script
@@ -86,6 +86,7 @@ jobs:
           lipo -create -output lib/libssl.a ../x86-64/lib/libssl.a ../arm64/lib/libssl.a
           lipo -create -output lib/libcrypto.a ../x86-64/lib/libcrypto.a ../arm64/lib/libcrypto.a
           lipo -create -output lib/ossl-modules/fips.dylib ../x86-64/lib/ossl-modules/fips.dylib ../arm64/lib/ossl-modules/fips.dylib
+          bin/openssl fipsinstall -out ssl/fipsmodule.cnf -module lib/ossl-modules/fips.dylib
       - uses: actions/upload-artifact@v2.2.4
         with:
           name: "openssl-macos-universal2"
