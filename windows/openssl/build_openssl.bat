@@ -1,6 +1,6 @@
 SET BUILDARCH=%1
 
-cd openssl-1*
+cd openssl-3*
 
 if "%BUILDARCH%" == "win32" (
     CALL ..\windows\openssl\build_openssl_win32_2019.bat
