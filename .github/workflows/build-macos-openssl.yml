@@ -44,7 +44,7 @@ jobs:
         run: |
           set -x
           source ./openssl-version.sh
-          mkdir artifact
+          mkdir artifact artifact/ssl
           BASEDIR=$(pwd)
           cd openssl*
           perl ./Configure \
