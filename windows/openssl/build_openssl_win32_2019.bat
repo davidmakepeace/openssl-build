@@ -11,7 +11,7 @@ mkdir ..\build\bin
 mkdir ..\build\lib
 mkdir ..\build\lib\ossl-modules
 mkdir ..\build\ssl
-apps\openssl fipsinstall -out ..\build\ssl\fipsmodule.cnf -module ..\build\lib\ossl-modules\fips.dll
+apps\openssl fipsinstall -out ..\build\ssl\fipsmodule.cnf -module providers\fips.dll
 move apps\openssl.exe ..\build\bin\
 move libcrypto.lib ..\build\lib\
 move libssl.lib ..\build\lib\
