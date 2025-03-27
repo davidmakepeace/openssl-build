@@ -53,7 +53,7 @@ jobs:
         env:
           CFLAGS: ${{ matrix.ARCH.CFLAGS }}
 
-      - uses: actions/upload-artifact@v2.2.4
+      - uses: actions/upload-artifact@v4
         with:
           name: "openssl-macos-${{ matrix.ARCH.ARTIFACT_NAME }}"
           path: artifact/
@@ -85,7 +85,7 @@ jobs:
           lipo -create -output lib/ossl-modules/fips.dylib ../x86-64/lib/ossl-modules/fips.dylib ../arm64/lib/ossl-modules/fips.dylib
           chmod +x bin/openssl
           bin/openssl fipsinstall -out ssl/fipsmodule.cnf -module lib/ossl-modules/fips.dylib
-      - uses: actions/upload-artifact@v2.2.4
+      - uses: actions/upload-artifact@v4
         with:
           name: "openssl-macos-universal2"
           path: artifact/
